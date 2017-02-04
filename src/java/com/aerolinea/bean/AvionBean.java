@@ -23,6 +23,7 @@ public class AvionBean implements Serializable {
 
     @EJB
     private controlAvion controlAvion;
+    
     private List<Avion> aviones;
     private Avion avion;
     
@@ -33,5 +34,40 @@ public class AvionBean implements Serializable {
         aviones = controlAvion.getAllAviones();
         return aviones;
     }
+
+    public void setAviones(List<Avion> aviones) {
+        this.aviones = aviones;
+    }
+
+    public Avion getAvion() {
+        return avion;
+    }
+
+    public void setAvion(Avion avion) {
+        this.avion = avion;
+    } 
     
+    public String preparaNuevo(){
+        avion=new Avion();
+        return "AvionForm.xhtml?faces-redirect=true";
+    }
+            
+    public String guardar(){
+        if (avion.getIdavion()==null)
+            controlAvion.guardarAvion(avion);
+        else
+            controlAvion.modificarAvion(avion);
+        return "AvionLista.xhtml?faces-redirect=true";
+    }
+    
+    public String seleccionaEdit(Avion a){
+        avion=a;
+        return "AvionForm.xhtml?faces-redirect=true";
+    }
+    
+    public String eliminar(Avion a){
+        avion=a;
+        controlAvion.eliminarAvion(avion);
+        return "AvionLista.xhtml?faces-redirect=true";
+    }
 }

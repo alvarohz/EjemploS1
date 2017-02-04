@@ -27,5 +27,18 @@ public class controlAvion {
     public List<Avion> getAllAviones(){
         return avionFacade.findAll();
     }
+    
+    public void guardarAvion(Avion avion){
+        avionFacade.create(avion);
+    }
+
+    public void modificarAvion(Avion avion) {
+        avionFacade.edit(avion);
+    }
+
+    public void eliminarAvion(Avion avion) {
+        avionFacade.remove(avion);
+    }
+    
 
 }
