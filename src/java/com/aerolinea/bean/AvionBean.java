@@ -5,13 +5,18 @@
  */
 package com.aerolinea.bean;
 
+import com.aerolinea.entidad.Aeropuerto;
 import com.aerolinea.entidad.Avion;
+import com.aerolinea.entidad.Pais;
 import com.aerolinea.sesion.controlAvion;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -26,13 +31,24 @@ public class AvionBean implements Serializable {
     
     private List<Avion> aviones;
     private Avion avion;
+    private String busqueda;
+    
+    @PostConstruct
+    public void init(){
+        avion=new Avion();
+    }
     
     public AvionBean() {
+        busqueda="";
     }
 
     public List<Avion> getAviones() {
-        aviones = controlAvion.getAllAviones();
+        aviones = controlAvion.consultarAviones(busqueda);
         return aviones;
+    }
+    
+    public void consultar(){
+        this.getAviones();
     }
 
     public void setAviones(List<Avion> aviones) {
@@ -46,6 +62,14 @@ public class AvionBean implements Serializable {
     public void setAvion(Avion avion) {
         this.avion = avion;
     } 
+
+    public String getBusqueda() {
+        return busqueda;
+    }
+
+    public void setBusqueda(String busqueda) {
+        this.busqueda = busqueda;
+    }
     
     public String preparaNuevo(){
         avion=new Avion();
@@ -65,9 +89,14 @@ public class AvionBean implements Serializable {
         return "AvionForm.xhtml?faces-redirect=true";
     }
     
-    public String eliminar(Avion a){
+    public void eliminar(Avion a){
         avion=a;
         controlAvion.eliminarAvion(avion);
-        return "AvionLista.xhtml?faces-redirect=true";
+        FacesContext.getCurrentInstance().
+ addMessage(null, new FacesMessage(
+         FacesMessage.SEVERITY_INFO, "Informacion", "Datos borrados")
+            );
+        this.getAviones();
     }
+   
 }

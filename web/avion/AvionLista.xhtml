@@ -15,12 +15,25 @@
                 <h:outputLabel value="AvionLista"/>
                 <f:view>
                     <h:form>
+                        <p:inputText value="#{AvionBean.busqueda}" id="busqueda">
+                        </p:inputText>
+                        <p:commandButton icon="ui-icon-search" action="#{AvionBean.consultar}" 
+                                         update=":frmMain:tblAviones"/>
+                    </h:form>
+                    <h:form id="frmMain">
+                        <p:growl autoUpdate="true" showDetail="true"/><!--mostrar mensaje como poppup-->
+                        <p:messages autoUpdate="true" closable="true" showDetail="true"/>
                         <p:commandButton value="Nuevo Avion" action="#{AvionBean.preparaNuevo()}"/>
                         <p:commandButton id="ver" value="Ver reporte" ajax="false" action="#{controlReporte.generarReporte('pdf')}" onclick="target = '_blank'"/>
                         <br></br><br></br>
                         <h1><h:outputText value="Lista de Aviones"/></h1>
                         <br></br>
-                        <p:dataTable value="#{AvionBean.aviones}" var="item">
+                        <p:dataTable id="tblAviones" value="#{AvionBean.aviones}" var="item"
+                         rows="2"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} 
+                         {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" paginatorPosition="bottom">
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="ID Avion"/>
@@ -44,7 +57,7 @@
                             </p:column>
                             <p:column>
              <p:commandButton icon="ui-icon-trash" action="#{AvionBean.eliminar(item)}"
-                              onclick="return confirm('estas seguro?')"/>
+                              onclick="return confirm('estas seguro?')" update=":frmMain:tblAviones"/>
                             </p:column>
                         </p:dataTable>
                     </h:form>

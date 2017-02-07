@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../template/template.xhtml">
+
+            <ui:define name="content">
+                <f:view>
+
+
+                    <h:form id="frmMain">
+                        <p:growl autoUpdate="true" showDetail="true"/>
+                        <h1><h:outputText value="List"/></h1>
+                        <p:commandButton value="Nuevo Aeropuerto" action="#{AeropuertoBean.preparaNuevo()}"/>
+                        <p:dataTable id="tblAeropuertos" value="#{AeropuertoBean.aeropuertos}" var="item" style="width: 50%">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Idaeropuerto"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idaeropuerto}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Aeropuerto"/>
+                                </f:facet>
+                                <h:outputText value="#{item.aeropuerto}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Ciudad"/>
+                                </f:facet>
+                                <h:outputText value="#{item.ciudad}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Idpais"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idpais.pais}"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton icon="ui-icon-pencil" action="#{AeropuertoBean.seleccionaEdit(item)}"/>
+                            </p:column>
+                            <p:column>
+             <p:commandButton icon="ui-icon-trash" action="#{AeropuertoBean.eliminar(item)}"
+                              onclick="return confirm('estas seguro?')" update=":frmMain:tblAeropuertos"/>
+                            </p:column>                            
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

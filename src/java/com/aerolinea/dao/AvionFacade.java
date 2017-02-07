@@ -6,9 +6,11 @@
 package com.aerolinea.dao;
 
 import com.aerolinea.entidad.Avion;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +29,15 @@ public class AvionFacade extends AbstractFacade<Avion> {
 
     public AvionFacade() {
         super(Avion.class);
+    }
+    
+    public List<Avion> consultarAviones(String descripcion){
+//        Query q2 = em.createNativeQuery("select * from avion where "
+//                + "descripcion like :desc");
+        Query q = em.createQuery("select a from Avion a where a.descripcion like"
+                + " :desc");
+        q.setParameter("desc", "%"+descripcion+"%");
+        return q.getResultList();
     }
     
 }

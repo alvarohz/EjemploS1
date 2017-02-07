@@ -40,5 +40,9 @@ public class controlAvion {
         avionFacade.remove(avion);
     }
     
+    public List<Avion> consultarAviones(String desc){
+        return avionFacade.consultarAviones(desc);
+    }
+    
 
 }
