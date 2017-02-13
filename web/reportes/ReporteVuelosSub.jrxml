@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="585" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" uuid="b2639fba-3353-4bdc-aed1-0867ed8a4df7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="78"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecha" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select 
+v.idvuelo,
+o.aeropuerto as origen,
+d.aeropuerto as destino,
+date_format(fecha,'%d-%m-%Y') as fecha,
+a.descripcion as avion,
+v.estado,
+v.precio
+from vuelo v, aeropuerto o, aeropuerto d, avion a
+where
+v.idorigen=o.idaeropuerto and
+v.iddestino=d.idaeropuerto and
+a.idavion=v.idavion and
+fecha = $P{fecha}]]>
+	</queryString>
+	<field name="idvuelo" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="origen" class="java.lang.String"/>
+	<field name="destino" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="avion" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precio" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="precio_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{precio}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="83" height="20" backcolor="#FFCCCC" uuid="99188e1d-ccfd-4a01-9a80-de82bd6a7163"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[idvuelo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="83" y="0" width="83" height="20" backcolor="#FFCCCC" uuid="34daa319-3e20-486b-beee-ed395c768d6a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[origen]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="166" y="0" width="83" height="20" backcolor="#FFCCCC" uuid="da9f2a41-55cf-4de4-a111-c39a8654b7a7"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[destino]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="249" y="0" width="83" height="20" backcolor="#FFCCCC" uuid="25a6d301-2a1a-4ea2-82b4-5997a7e8c7ca"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="332" y="0" width="83" height="20" backcolor="#FFCCCC" uuid="37a77187-81fc-4ffd-84dd-db61d6130fa1"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[avion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="415" y="0" width="83" height="20" backcolor="#FFCCCC" uuid="f26b4acd-8c94-48b0-9b9b-754b39742e7c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="498" y="0" width="83" height="20" backcolor="#FFCCCC" uuid="afcaa304-cb3e-41d0-9518-1cd9d65b3e60"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[precio]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="83" height="20" uuid="3e39253e-1046-4aaa-98d6-b0fe0e85c309"/>
+				<textFieldExpression><![CDATA[$F{idvuelo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="83" y="0" width="83" height="20" uuid="3e7ea287-7e15-4872-8cc2-beae36dcb326"/>
+				<textFieldExpression><![CDATA[$F{origen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="166" y="0" width="83" height="20" uuid="93529a0a-6a29-4229-b293-e03215779620"/>
+				<textFieldExpression><![CDATA[$F{destino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="249" y="0" width="83" height="20" uuid="711ac840-2c72-4eeb-b902-4158a65e1337"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="332" y="0" width="83" height="20" uuid="3b6888ed-36d0-4e45-af02-21c2b0052d30"/>
+				<textFieldExpression><![CDATA[$F{avion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="415" y="0" width="83" height="20" uuid="8bfe22e7-c191-4975-8cc1-8f538df9ab85"/>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="498" y="0" width="83" height="20" uuid="7c3fd243-2e8d-4a21-b16a-28aa64924d02"/>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="26" splitType="Stretch">
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="498" y="0" width="83" height="20" uuid="369d16c5-2d83-45b1-8fbb-ead58601f9d3"/>
+				<textFieldExpression><![CDATA[$V{precio_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="387" y="0" width="100" height="20" uuid="c7b22297-b5cd-473c-9d5e-facdf81d06a4"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Totales]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

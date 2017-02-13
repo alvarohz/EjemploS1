@@ -19,6 +19,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 
 /**
  *
@@ -81,13 +82,12 @@ public class AeropuertoBean implements Serializable {
         return "AeropuertoForm.xhtml?faces-redirect=true";
     }        
     public String guardar(){
-        
         if (aeropuerto.getIdaeropuerto()==null){
-            aeropuerto.setIdpais(pais);
+            //aeropuerto.setIdpais(pais);
             controlAeropuerto.guardarAeropuerto(aeropuerto);
         }else{
-            pais = new Pais(aeropuerto.getIdpais().getIdpais());
-            aeropuerto.setIdpais(pais);
+            //pais = new Pais(aeropuerto.getIdpais().getIdpais());
+            //aeropuerto.setIdpais(pais);
             controlAeropuerto.modificarAeropuerto(aeropuerto);
         }
         return "AeropuertoLista.xhtml?faces-redirect=true";
@@ -106,4 +106,22 @@ public class AeropuertoBean implements Serializable {
             );
         this.getAeropuertos();
     }
+    
+    @FacesConverter(forClass = Pais.class)
+    public static class PaisConverter implements Converter{
+
+        @Override
+        public Object getAsObject(FacesContext context, UIComponent component, 
+                String value) {
+            return new Pais(Integer.parseInt(value));
+        }
+
+        @Override
+        public String getAsString(FacesContext context, UIComponent component, 
+                Object value) {
+                return ((Pais)value).getIdpais().toString();
+        }
+    
+    }
+    
 }

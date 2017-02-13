@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2c5b19f4-829d-4993-a9bb-f0134d5bbde7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecha1" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha2" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/Users/Alvaro/Desktop/semana3/EjemploS1/web/reportes/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select 
+distinct v.fecha
+from vuelo v
+where
+v.fecha between $P{fecha1} and $P{fecha2} order by fecha asc]]>
+	</queryString>
+	<field name="fecha" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="totalgeneral" class="java.lang.Double" calculation="Sum"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="103" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="29" width="128" height="51" uuid="86230311-da02-49d9-84f4-2b0dcd3c99f0"/>
+				<imageExpression><![CDATA["plane-01.jpg"]]></imageExpression>
+			</image>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="128" y="0" width="100" height="20" uuid="dce8cb90-4488-4a34-a792-29414b3f2401"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="c6f58792-bf77-4238-8327-e93d46578bd6"/>
+				<text><![CDATA[Aerolinea Project]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="100" height="20" uuid="14c22474-eb9b-4b25-b431-cc5a3f454a10"/>
+				<text><![CDATA[Reporte de Vuelos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="3" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="34" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement mode="Opaque" x="100" y="0" width="455" height="20" backcolor="#9999FF" uuid="62511374-f189-4b1c-817d-61c1f12127d7"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="100" height="20" backcolor="#FFFF99" uuid="88731cb3-84d2-4ebb-867e-759f5181c9c0"/>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="20" width="555" height="21" uuid="95e46536-3a4a-46ed-ad7c-700e93924f9d"/>
+				<subreportParameter name="fecha">
+					<subreportParameterExpression><![CDATA[$F{fecha}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="precio_1" toVariable="totalgeneral" calculation="Sum"/>
+				<subreportExpression><![CDATA["ReporteVuelosSub.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="80" height="20" uuid="915dad21-ada4-40d8-8970-32add8694baa"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="80" y="0" width="40" height="20" uuid="eb18a844-6965-4e85-a6c2-826f1aa15530"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="23" splitType="Stretch">
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="455" y="3" width="100" height="20" uuid="3d98679b-7534-4191-89f6-413e6291b4be"/>
+				<textFieldExpression><![CDATA[$V{totalgeneral}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="339" y="3" width="100" height="20" uuid="a724bcea-3e81-456b-b932-cfbd62e90917"/>
+				<text><![CDATA[Total General]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
