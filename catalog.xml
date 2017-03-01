@@ -2,4 +2,6 @@
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="http://localhost:46866/EjemploS1/wsAvion?wsdl" uri="src/conf/xml-resources/web-service-references/wsAvion/wsdl/localhost_46866/EjemploS1/wsAvion.wsdl"/>
     <system systemId="http://localhost:46866/EjemploS1/wsAvion?xsd=1" uri="src/conf/xml-resources/web-service-references/wsAvion/wsdl/localhost_46866/EjemploS1/wsAvion.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/EjemploS1/wsAvion?wsdl" uri="src/conf/xml-resources/web-service-references/wsAvion/wsdl/localhost_8080/EjemploS1/wsAvion.wsdl"/>
+    <system systemId="http://localhost:8080/EjemploS1/wsAvion?xsd=1" uri="src/conf/xml-resources/web-service-references/wsAvion/wsdl/localhost_8080/EjemploS1/wsAvion.xsd_1.xsd"/>
 </catalog>

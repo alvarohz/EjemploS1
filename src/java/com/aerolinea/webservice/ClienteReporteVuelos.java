@@ -25,7 +25,7 @@ public class ClienteReporteVuelos {
 
     private WebTarget webTarget;
     private Client client;
-    private static final String BASE_URI = "http://localhost:46866/EjemploS1/webresources";
+    private static final String BASE_URI = "http://localhost:8080/EjemploS1/webresources";
 
     public ClienteReporteVuelos() {
         client = javax.ws.rs.client.ClientBuilder.newClient();

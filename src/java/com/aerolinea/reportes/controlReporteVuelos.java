@@ -24,6 +24,7 @@ import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import com.aerolinea.webservice.ClienteReporteVuelos;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Named(value = "controlReporteVuelos")
 @ViewScoped
-public class controlReporteVuelos{
+public class controlReporteVuelos implements Serializable{
     private Date fecha1;
     private Date fecha2;
     private Connection conn;
